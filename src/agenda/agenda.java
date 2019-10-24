@@ -63,22 +63,34 @@ public class agenda {
 		}
 	
 	
-	public static void buscarcontactos(String magenda[][]) {
+	public static int buscarcontactos(String magenda[][]) {
 		Scanner leer;
 		leer = new Scanner(System.in);
 		String nombre = "";
+		int posicion=0;
 		
-		System.out.println("A quien quieres buscar");
 		nombre = leer.nextLine();
 		for (int i=0; i<magenda.length;i++) {
 			if ((magenda[i][0]!=null) && (magenda[i][0].equalsIgnoreCase(nombre))){
-				System.out.println(magenda[i][0] + magenda[i][1]) ;
-				
+				posicion=i;
+				break;
 			}
+			
 		}
-		
+		return posicion;
 	}
 	
+	public static void borrarcontactos(String magenda[][]) {
+		int borrar=buscarcontactos(magenda);
+		magenda[borrar][0]=null;
+		magenda[borrar][1]=null;
+	}
+	
+	
+	public static void editarcontacos(String magenda[][]) {
+		borrarcontactos(magenda);
+		guardarcontactos(magenda);
+	}
 	
 	
 	
@@ -87,6 +99,8 @@ public class agenda {
 		// TODO Auto-generated method stub
 		int seleccion = 0;
 		String magenda[][] = new String [2][2];
+		int posicion=0;
+		
 		
 		
 		
@@ -97,16 +111,18 @@ public class agenda {
 			guardarcontactos(magenda);
 			break;
 		case 2:
-			//borrarcontactos(magenda);
+			borrarcontactos(magenda);
 			break;
 		case 3:
 			vercontactos(magenda);
 			break;
 		case 4:
-			buscarcontactos(magenda);
+			System.out.println("A quien quieres buscar");
+			posicion=buscarcontactos(magenda);
+			System.out.println(posicion);
 			break;
 		case 5:
-			//editarcontacos(magenda);
+			editarcontacos(magenda);
 			break;
 		case 6:
 			System.out.println("Adios");
